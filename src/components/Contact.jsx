@@ -16,16 +16,16 @@ import './Contact.css';
 /** Change these to your real profiles — they are the only details to update. */
 export const CONTACT = {
   email: 'Jenny-lyn.garin@example.com',
-  github: 'https://github.com/Jenny-lyngarin',
-  facebook: 'https://facebook.com/Jenny-lyngarin',
-  linkedin: 'https://linkedin.com/in/Jenny-lyngarin',
+  github: 'https://github.com/Jenny-lyn Ibañez ',
+  facebook: 'https://facebook.com/Jenny-lyn Ibañez ',
+  linkedin: 'https://linkedin.com/in/Jenny-lyn Ibañez ',
 };
 
 const CHANNELS = [
   { key: 'email', label: 'Email', value: CONTACT.email, href: `mailto:${CONTACT.email}`, Icon: Mail },
-  { key: 'github', label: 'GitHub', value: 'github.com/Jenny-lyngarin', href: CONTACT.github, Icon: Github },
-  { key: 'facebook', label: 'Facebook', value: 'facebook.com/Jenny-lyngarin', href: CONTACT.facebook, Icon: Facebook },
-  { key: 'linkedin', label: 'LinkedIn', value: 'linkedin.com/in/Jenny-lyngarin', href: CONTACT.linkedin, Icon: Linkedin },
+  { key: 'github', label: 'GitHub', value: 'github.com/Jenny-lyn Ibañez ', href: CONTACT.github, Icon: Github },
+  { key: 'facebook', label: 'Facebook', value: 'facebook.com/Jenny-lyn Ibañez ', href: CONTACT.facebook, Icon: Facebook },
+  { key: 'linkedin', label: 'LinkedIn', value: 'linkedin.com/in/Jenny-lyn Ibañez ', href: CONTACT.linkedin, Icon: Linkedin },
 ];
 
 const EMPTY = { name: '', email: '', message: '' };
