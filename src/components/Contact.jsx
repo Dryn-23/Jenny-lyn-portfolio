@@ -15,7 +15,7 @@ import './Contact.css';
 
 /** Change these to your real profiles — they are the only details to update. */
 export const CONTACT = {
-  email: 'Jenny-lyn.garin@example.com',
+  email: 'Jenny-lyn.Ibañez @example.com',
   github: 'https://github.com/Jenny-lyn Ibañez ',
   facebook: 'https://facebook.com/Jenny-lyn Ibañez ',
   linkedin: 'https://linkedin.com/in/Jenny-lyn Ibañez ',
