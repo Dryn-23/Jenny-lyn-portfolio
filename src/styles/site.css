@@ -1,0 +1,56 @@
+/* site.css — page-level scaffolding that isn't owned by a single component */
+
+.skip-link {
+  position: absolute;
+  left: 50%;
+  top: -60px;
+  transform: translateX(-50%);
+  z-index: 400;
+  padding: 0.6rem 1.1rem;
+  border-radius: 0 0 var(--r-md) var(--r-md);
+  background: var(--forest);
+  color: #f4f8ef;
+  font-weight: 700;
+  transition: top var(--t-med) var(--ease-out);
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Sections that sit directly on the page background get a hairline separator */
+main > section + section::before {
+  content: '';
+  display: block;
+  height: 1px;
+  width: min(var(--container), 100% - 2.4rem);
+  margin: 0 auto;
+  background: linear-gradient(90deg, transparent, rgba(63, 90, 72, 0.14), transparent);
+}
+
+/* the story timeline's dashed spine sits above that hairline nicely */
+main > section + section {
+  position: relative;
+}
+
+/* Print: keep the story readable on paper */
+@media print {
+  .nav,
+  .to-top,
+  .toast-viewport,
+  .project-card__tools,
+  .spotlight__tools,
+  .projects__toolbar {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  .reveal,
+  .chapter {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

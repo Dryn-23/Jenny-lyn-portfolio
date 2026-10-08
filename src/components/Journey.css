@@ -1,0 +1,323 @@
+/* Journey.css — story timeline */
+
+.journey {
+  position: relative;
+  background: linear-gradient(180deg, var(--cream) 0%, rgba(232, 221, 200, 0.4) 50%, var(--cream) 100%);
+}
+
+.journey__divider {
+  opacity: 0.7;
+}
+
+.journey__leaf {
+  left: 3%;
+  top: 14%;
+  opacity: 0.65;
+}
+
+/* --- timeline shell ------------------------------------------------------ */
+.timeline {
+  --journey-progress: 0;
+  position: relative;
+  margin: 0;
+  padding-left: 0;
+  display: grid;
+  gap: clamp(1.6rem, 3.4vw, 2.6rem);
+}
+
+.timeline__spine {
+  position: absolute;
+  top: 6px;
+  bottom: 6px;
+  left: 27px;
+  width: 2px;
+  border-radius: 2px;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(63, 90, 72, 0.22) 0 7px,
+    transparent 7px 14px
+  );
+  overflow: hidden;
+}
+
+.timeline__spine-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--sage-soft), var(--forest));
+  transform: scaleY(var(--journey-progress));
+  transform-origin: top;
+  transition: transform 140ms linear;
+}
+
+/* --- chapter row --------------------------------------------------------- */
+.chapter {
+  position: relative;
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  align-items: start;
+  gap: clamp(0.6rem, 1.6vw, 1.2rem);
+  opacity: 0;
+  transform: translateY(34px);
+  transition: opacity 780ms var(--ease-out), transform 780ms var(--ease-out);
+  transition-delay: var(--delay, 0ms);
+}
+
+.chapter.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.chapter__node {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding-top: 1.9rem;
+}
+
+.chapter__node-dot {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--cream);
+  border: 2.5px solid var(--sage);
+  box-shadow: 0 0 0 4px rgba(217, 226, 207, 0.75);
+  transition: background-color var(--t-slow) var(--ease-out), border-color var(--t-slow) linear,
+    transform var(--t-slow) var(--ease-out);
+}
+
+.chapter.is-visible .chapter__node-dot {
+  background: var(--sage);
+  transform: scale(1.12);
+}
+
+/* --- card ---------------------------------------------------------------- */
+.chapter__card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.82fr);
+  gap: clamp(1.2rem, 3vw, 2.4rem);
+  align-items: center;
+  padding: clamp(1.4rem, 3vw, 2.3rem);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(251, 249, 243, 0.94));
+  border-radius: var(--r-xl);
+  box-shadow: var(--shadow-md);
+  transition: transform var(--t-slow) var(--ease-out), box-shadow var(--t-slow) var(--ease-out);
+}
+
+.chapter__card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+.chapter--flip .chapter__card {
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1fr);
+}
+
+.chapter--flip .chapter__text {
+  order: 2;
+}
+
+.chapter--flip .chapter__media {
+  order: 1;
+}
+
+.chapter__eyebrow {
+  margin-bottom: 0.5rem;
+}
+
+.chapter__title {
+  margin-bottom: 0.15rem;
+}
+
+.chapter__squiggle {
+  margin-bottom: 0.7rem;
+}
+
+.chapter__para + .chapter__para {
+  margin-top: 0.8rem;
+}
+
+.chapter__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 1.1rem;
+}
+
+.chapter__chips .tag {
+  animation: none;
+}
+
+.chapter.is-visible .chapter__chips .tag {
+  animation: chipPop 520ms var(--ease-out) backwards;
+  animation-delay: calc(420ms + var(--chip-delay));
+}
+
+@keyframes chipPop {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.92);
+  }
+}
+
+.chapter__card .btn {
+  margin-top: 1.3rem;
+}
+
+/* --- media column -------------------------------------------------------- */
+.chapter__media {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+  justify-items: center;
+  /* reserved so a reveal never nudges the card height mid-scroll */
+  min-height: 1px;
+}
+
+.chapter__figure {
+  position: relative;
+  margin: 0;
+  align-self: center;
+  width: min(100%, 360px);
+  padding: 12px 12px 22px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow-md);
+  transform: rotate(var(--photo-rot, -1.6deg));
+  transition: transform var(--t-slow) var(--ease-out), box-shadow var(--t-slow) var(--ease-out);
+}
+
+.chapter--flip .chapter__figure {
+  --photo-rot: 1.8deg;
+}
+
+.chapter__figure:hover {
+  transform: rotate(0deg) scale(1.015);
+  box-shadow: var(--shadow-lg);
+}
+
+/* washi tape on the photo corner */
+.chapter__figure::before {
+  content: '';
+  position: absolute;
+  top: -11px;
+  left: 50%;
+  translate: -50% 0;
+  width: 84px;
+  height: 22px;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(217, 226, 207, 0.95) 0 6px,
+    rgba(199, 212, 187, 0.95) 6px 12px
+  );
+  border-radius: 3px;
+  box-shadow: var(--shadow-xs);
+  transform: rotate(-3deg);
+}
+
+.chapter__img {
+  width: 100%;
+  aspect-ratio: 4 / 3.4;
+  object-fit: cover;
+  border-radius: 8px;
+  background: var(--soft-green);
+}
+
+/* quote card used for chapters without an illustration */
+.chapter__quote {
+  width: min(100%, 330px);
+  padding: 2rem 1.6rem;
+  text-align: center;
+  border-radius: var(--r-lg);
+  background: radial-gradient(120% 120% at 20% 0%, rgba(217, 226, 207, 0.9), rgba(232, 221, 200, 0.6));
+  border: 1px dashed rgba(63, 90, 72, 0.28);
+}
+
+.chapter__quote p {
+  font-family: var(--font-hand);
+  font-size: clamp(1.3rem, 2.2vw, 1.6rem);
+  line-height: 1.35;
+  color: var(--forest);
+}
+
+.chapter__quote-icon {
+  color: var(--sage);
+  margin: 0 auto 0.5rem;
+}
+
+/* margin notes — flow under the photo so they never cover the artwork */
+.chapter__note {
+  position: relative;
+  color: var(--ink-mute);
+}
+
+.chapter__note {
+  justify-self: end;
+  margin-top: 1.6rem;
+  margin-right: 0.2rem;
+  max-width: 14ch;
+}
+
+.chapter__note .note {
+  font-size: clamp(1.05rem, 1.8vw, 1.32rem);
+}
+
+.chapter--flip .chapter__note {
+  justify-self: start;
+  margin-right: 0;
+  margin-left: 0.2rem;
+}
+
+/* --- sign-off ------------------------------------------------------------ */
+.journey__signoff {
+  margin-top: clamp(2.2rem, 5vw, 3.4rem);
+  text-align: right;
+  font-size: clamp(1.2rem, 2.2vw, 1.55rem);
+  color: var(--ink-mute);
+}
+
+/* --- responsive ---------------------------------------------------------- */
+@media (max-width: 900px) {
+  .chapter__card,
+  .chapter--flip .chapter__card {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.4rem;
+  }
+
+  .chapter--flip .chapter__text,
+  .chapter--flip .chapter__media {
+    order: initial;
+  }
+
+  .chapter__media {
+    justify-items: start;
+  }
+
+  .chapter__note,
+  .chapter--flip .chapter__note {
+    justify-self: start;
+    margin-top: 0.2rem;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .journey__signoff {
+    text-align: left;
+  }
+}
+
+@media (max-width: 600px) {
+  .chapter {
+    grid-template-columns: 40px 1fr;
+  }
+
+  .timeline__spine {
+    left: 19px;
+  }
+
+  .chapter__figure {
+    transform: none;
+    width: 100%;
+  }
+}

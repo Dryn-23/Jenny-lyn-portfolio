@@ -1,0 +1,369 @@
+/* Hero.css */
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  min-height: clamp(560px, 92vh, 860px);
+  display: flex;
+  align-items: center;
+  padding-block: clamp(3.5rem, 9vw, 6rem) clamp(5rem, 10vw, 8rem);
+  overflow: hidden;
+  background: var(--soft-green);
+  color: var(--forest);
+}
+
+/* --- background layers --------------------------------------------------- */
+.hero__bg {
+  position: absolute;
+  inset: -8% -2% -6%;
+  z-index: -3;
+  overflow: hidden;
+}
+
+.hero__bg-image {
+  position: absolute;
+  inset: -6% 0;
+  background-image: url('/hero-landscape.jpg');
+  background-size: cover;
+  background-position: center 42%;
+  transform: translate3d(0, var(--parallax-y, 0px), 0) scale(1.06);
+  will-change: transform;
+}
+
+/* soft light haze that keeps the sky airy */
+.hero__clouds {
+  position: absolute;
+  inset: 0;
+  transform: translate3d(0, var(--parallax-y, 0px), 0);
+  background:
+    radial-gradient(60% 42% at 22% 18%, rgba(255, 255, 255, 0.55), transparent 68%),
+    radial-gradient(45% 34% at 72% 12%, rgba(255, 255, 255, 0.4), transparent 70%);
+  mix-blend-mode: screen;
+  will-change: transform;
+}
+
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(96deg, rgba(247, 244, 236, 0.95) 0%, rgba(247, 244, 236, 0.86) 30%, rgba(247, 244, 236, 0.42) 54%, rgba(247, 244, 236, 0.06) 76%),
+    linear-gradient(180deg, rgba(245, 241, 230, 0.6) 0%, rgba(245, 241, 230, 0) 34%, rgba(245, 241, 230, 0.5) 100%);
+}
+
+/* --- content ------------------------------------------------------------- */
+.hero__inner {
+  position: relative;
+  z-index: 2;
+  width: min(var(--container), 100% - 2.4rem);
+}
+
+.hero__content {
+  max-width: 40rem;
+}
+
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 1rem 0.4rem;
+  margin-bottom: 1rem;
+  border-radius: var(--r-pill);
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(63, 90, 72, 0.16);
+  box-shadow: var(--shadow-xs);
+  font-family: var(--font-hand);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--forest);
+  backdrop-filter: blur(3px);
+}
+
+.hero__eyebrow-leaf {
+  display: grid;
+  place-items: center;
+  color: var(--sage);
+}
+
+.hero__title {
+  font-size: clamp(3rem, 9vw, 5.4rem);
+  line-height: 0.98;
+  color: var(--forest);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.hero__name {
+  position: relative;
+  display: inline-block;
+  color: var(--forest);
+}
+
+.hero__name::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.06em;
+  height: 0.14em;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(113, 138, 106, 0.55), rgba(217, 226, 207, 0.2));
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: heroUnderline 900ms var(--ease-out) 900ms forwards;
+}
+
+@keyframes heroUnderline {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.hero__role {
+  margin-top: 0.5rem;
+  font-size: clamp(1.6rem, 4vw, 2.5rem);
+  color: var(--sage);
+}
+
+.hero__intro {
+  margin-top: 1.15rem;
+  max-width: 34rem;
+  font-size: clamp(1rem, 1.5vw, 1.12rem);
+  line-height: 1.75;
+  color: var(--ink-soft);
+  font-weight: 500;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.9rem;
+}
+
+.hero__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem 2.2rem;
+  margin-top: 2.4rem;
+  padding-top: 1.4rem;
+  border-top: 1px dashed rgba(63, 90, 72, 0.28);
+  max-width: 34rem;
+}
+
+.hero__facts dt {
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--sage);
+}
+
+.hero__facts dd {
+  font-family: var(--font-hand);
+  font-size: 1.28rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+
+/* --- entrance animation -------------------------------------------------- */
+.hero__anim {
+  opacity: 0;
+  animation: heroRise 780ms var(--ease-out) forwards;
+  animation-delay: var(--d, 0ms);
+}
+
+.hero__line {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.5em) rotate(1.4deg);
+  animation: heroRise 900ms var(--ease-out) forwards;
+  animation-delay: var(--d, 0ms);
+}
+
+@keyframes heroRise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --- decorations --------------------------------------------------------- */
+.hero__leaf,
+.hero__sprig,
+.hero__flower {
+  z-index: 1;
+  opacity: 0;
+  animation: decorate 1s var(--ease-out) forwards, float 9s var(--ease-soft) infinite;
+  animation-delay: 700ms, 1200ms;
+}
+
+@keyframes decorate {
+  to {
+    opacity: 1;
+  }
+}
+
+.hero__leaf--1 {
+  left: 4%;
+  top: 18%;
+}
+.hero__leaf--2 {
+  right: 12%;
+  top: 26%;
+}
+.hero__sprig {
+  right: 6%;
+  bottom: 20%;
+}
+.hero__flower {
+  left: 12%;
+  bottom: 16%;
+}
+
+/* --- scroll cue ---------------------------------------------------------- */
+.hero__scroll {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(3.4rem, 7vw, 5rem);
+  transform: translateX(-50%);
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--r-pill);
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(63, 90, 72, 0.14);
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: lowercase;
+  backdrop-filter: blur(4px);
+  transition: transform var(--t-med) var(--ease-out), background-color var(--t-med) linear;
+}
+
+.hero__scroll:hover {
+  background: rgba(255, 255, 255, 0.85);
+  transform: translateX(-50%) translateY(-3px);
+}
+
+.hero__scroll-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--sage);
+  box-shadow: 0 0 0 0 rgba(113, 138, 106, 0.5);
+  animation: pulse 2.4s var(--ease-soft) infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(113, 138, 106, 0.45);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(113, 138, 106, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(113, 138, 106, 0);
+  }
+}
+
+/* --- grass transition ---------------------------------------------------- */
+.hero__grass {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  width: 100%;
+  height: clamp(38px, 5vw, 70px);
+  color: var(--cream);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* --- responsive ---------------------------------------------------------- */
+@media (max-width: 900px) {
+  /* Stack the story: text first, then the painted valley as a framed band
+     underneath — readable and still very much a storybook hero. */
+  .hero {
+    display: block;
+    min-height: 0;
+    padding-block: clamp(2.4rem, 7vw, 3.4rem) clamp(7rem, 30vw, 13rem);
+  }
+
+  .hero__inner {
+    padding-bottom: clamp(1rem, 4vw, 2rem);
+  }
+
+  .hero__bg {
+    inset: auto 0 0 0;
+    height: min(46vh, 420px);
+  }
+
+  .hero__bg-image {
+    inset: 0;
+    background-position: center 62%;
+    transform: translate3d(0, var(--parallax-y, 0px), 0) scale(1.04);
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 100%);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 22%, #000 100%);
+  }
+
+  .hero__clouds {
+    -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 30%);
+    mask-image: linear-gradient(180deg, transparent 0%, #000 30%);
+  }
+
+  .hero__scrim {
+    background:
+      linear-gradient(180deg, rgba(245, 241, 230, 0.99) 0%, rgba(245, 241, 230, 0.96) 42%, rgba(245, 241, 230, 0.5) 60%, rgba(245, 241, 230, 0) 72%),
+      linear-gradient(180deg, rgba(245, 241, 230, 0) 74%, rgba(245, 241, 230, 0.55) 100%);
+  }
+
+  .hero__leaf--2,
+  .hero__flower {
+    display: none;
+  }
+
+  .hero__leaf--1 {
+    top: auto;
+    bottom: 34%;
+    left: 3%;
+  }
+
+  .hero__sprig {
+    right: 4%;
+    bottom: 38%;
+  }
+
+  .hero__grass {
+    height: clamp(30px, 8vw, 52px);
+  }
+}
+
+@media (max-width: 560px) {
+  .hero__facts {
+    gap: 0.7rem 1.6rem;
+    margin-top: 1.6rem;
+  }
+
+  .hero__actions {
+    gap: 0.6rem;
+  }
+
+  .hero__actions .btn {
+    flex: 1 1 100%;
+  }
+
+  .hero__scroll {
+    display: none;
+  }
+
+  .hero__bg {
+    height: min(40vh, 320px);
+  }
+}

@@ -1,0 +1,44 @@
+/* BackToTop.css */
+.to-top {
+  position: fixed;
+  right: clamp(0.9rem, 3vw, 1.8rem);
+  bottom: clamp(0.9rem, 3vw, 1.8rem);
+  z-index: 70;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.55rem 0.85rem 0.55rem 0.7rem;
+  border-radius: var(--r-pill);
+  background: rgba(63, 90, 72, 0.94);
+  color: #f4f8ef;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.6px;
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  transform: translateY(14px) scale(0.94);
+  pointer-events: none;
+  transition: opacity var(--t-med) linear, transform var(--t-med) var(--ease-out),
+    background-color var(--t-fast) linear;
+}
+
+.to-top svg {
+  transform: rotate(180deg);
+}
+
+.to-top.is-visible {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.to-top:hover {
+  background: var(--sage);
+  transform: translateY(-3px);
+}
+
+@media (max-width: 520px) {
+  .to-top__label {
+    display: none;
+  }
+}

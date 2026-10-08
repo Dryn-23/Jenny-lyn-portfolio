@@ -1,0 +1,296 @@
+/* Navbar.css */
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background: rgba(245, 241, 230, 0.86);
+  backdrop-filter: blur(10px) saturate(1.1);
+  -webkit-backdrop-filter: blur(10px) saturate(1.1);
+  border-bottom: 1px solid transparent;
+  transition: background-color var(--t-med) linear, box-shadow var(--t-med) var(--ease-out),
+    border-color var(--t-med) linear, padding var(--t-med) var(--ease-out);
+}
+
+.nav.is-scrolled {
+  background: rgba(250, 247, 239, 0.94);
+  border-bottom-color: var(--line);
+  box-shadow: 0 10px 30px -22px rgba(38, 53, 44, 0.45);
+}
+
+.nav.is-open {
+  background: var(--paper);
+}
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: var(--nav-h);
+}
+
+/* --- brand --------------------------------------------------------------- */
+.nav__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.2rem;
+  transition: transform var(--t-fast) var(--ease-out);
+}
+
+.nav__brand:hover {
+  transform: translateY(-1px);
+}
+
+.nav__brand-mark {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  color: var(--forest);
+  background: rgba(217, 226, 207, 0.85);
+  border: 1px solid var(--line);
+  transition: transform var(--t-med) var(--ease-out), background-color var(--t-med) linear;
+}
+
+.nav__brand:hover .nav__brand-mark {
+  transform: rotate(-8deg) scale(1.05);
+  background: var(--soft-green);
+}
+
+.nav__brand-text {
+  font-family: var(--font-hand);
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--forest);
+  letter-spacing: 0.3px;
+}
+
+/* --- desktop links ------------------------------------------------------- */
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.nav__link {
+  position: relative;
+  padding: 0.5rem 0.8rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  border-radius: var(--r-pill);
+  transition: color var(--t-fast) linear, background-color var(--t-fast) linear;
+}
+
+.nav__link span {
+  position: relative;
+  z-index: 1;
+}
+
+.nav__link::after {
+  content: '';
+  position: absolute;
+  left: 0.8rem;
+  right: 0.8rem;
+  bottom: 0.3rem;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--sage);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--t-med) var(--ease-out);
+}
+
+.nav__link:hover {
+  color: var(--forest);
+  background: rgba(217, 226, 207, 0.5);
+}
+
+.nav__link:hover::after,
+.nav__link.is-active::after {
+  transform: scaleX(1);
+}
+
+.nav__link.is-active {
+  color: var(--forest);
+  font-weight: 700;
+}
+
+/* --- reading progress ---------------------------------------------------- */
+.nav__progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: transparent;
+  overflow: hidden;
+}
+
+.nav__progress span {
+  display: block;
+  height: 100%;
+  width: 100%;
+  transform-origin: left;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, var(--sage-soft), var(--forest));
+  transition: transform 120ms linear;
+}
+
+/* --- hamburger ----------------------------------------------------------- */
+.nav__toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  color: var(--forest);
+  background: rgba(217, 226, 207, 0.6);
+  border: 1px solid var(--line);
+  transition: background-color var(--t-fast) linear, transform var(--t-fast) var(--ease-out);
+}
+
+.nav__toggle:hover {
+  background: var(--soft-green);
+  transform: translateY(-1px);
+}
+
+.nav__toggle-icon {
+  display: grid;
+  place-items: center;
+  animation: navIconIn var(--t-med) var(--ease-out);
+}
+
+@keyframes navIconIn {
+  from {
+    opacity: 0;
+    transform: rotate(-25deg) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --- mobile panel -------------------------------------------------------- */
+.nav__panel {
+  display: none;
+  overflow: hidden;
+  border-top: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(251, 249, 243, 0.99), rgba(245, 241, 230, 0.99));
+}
+
+.nav__panel-inner {
+  padding: 1.1rem 1.2rem 1.5rem;
+}
+
+.nav__panel ul {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.nav__panel li {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.nav__panel.is-open li {
+  animation: panelItemIn 420ms var(--ease-out) forwards;
+  animation-delay: calc(70ms + var(--i) * 55ms);
+}
+
+@keyframes panelItemIn {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.nav__panel a {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.8rem 0.9rem;
+  border-radius: var(--r-md);
+  font-family: var(--font-hand);
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--forest);
+  transition: background-color var(--t-fast) linear, transform var(--t-fast) var(--ease-out);
+}
+
+.nav__panel a:hover,
+.nav__panel a.is-active {
+  background: rgba(217, 226, 207, 0.72);
+  transform: translateX(4px);
+}
+
+.nav__panel-index {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: var(--sage);
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--r-pill);
+  background: rgba(113, 138, 106, 0.14);
+}
+
+.nav__panel-note {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 1.2rem;
+  color: var(--ink-mute);
+}
+
+.nav__scrim {
+  display: none;
+}
+
+/* --- responsive ---------------------------------------------------------- */
+@media (max-width: 860px) {
+  .nav__links {
+    display: none;
+  }
+
+  .nav__toggle {
+    display: inline-flex;
+  }
+
+  .nav__panel {
+    display: block;
+    max-height: 0;
+    transition: max-height 420ms var(--ease-out);
+  }
+
+  .nav__panel.is-open {
+    max-height: 460px;
+  }
+
+  .nav__scrim {
+    display: block;
+    position: fixed;
+    inset: var(--nav-h) 0 0;
+    background: rgba(38, 53, 44, 0.28);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--t-med) linear;
+    border: 0;
+    padding: 0;
+  }
+
+  .nav__scrim.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+@media (max-width: 420px) {
+  .nav__brand-text {
+    font-size: 1.35rem;
+  }
+}

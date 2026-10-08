@@ -1,0 +1,53 @@
+/* Decor.css — the leaf/blob/note decorations */
+
+.leaf-shape,
+.sprig-shape {
+  filter: drop-shadow(0 6px 10px rgba(63, 90, 72, 0.08));
+}
+
+.note-wrap {
+  margin: 0;
+  color: var(--ink-soft);
+  transform: rotate(var(--note-rot, 0deg));
+  transition: transform var(--t-slow) var(--ease-out);
+}
+
+.note-wrap:hover {
+  transform: rotate(calc(var(--note-rot, 0deg) * 0.4)) scale(1.02);
+}
+
+.note-wrap .note {
+  font-family: var(--font-hand);
+  font-size: clamp(1.12rem, 1.9vw, 1.4rem);
+  line-height: 1.28;
+  color: var(--ink-soft);
+  white-space: pre-line;
+}
+
+.note__curve {
+  color: var(--sage);
+  margin: 0.1rem 0 0 0.4rem;
+}
+
+/* mountain divider used between sections */
+.mountain-divider {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  line-height: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.mountain-divider.is-flipped {
+  bottom: auto;
+  top: -1px;
+  transform: rotate(180deg);
+}
+
+.mountain-divider svg {
+  width: 100%;
+  height: clamp(70px, 11vw, 150px);
+  display: block;
+}
